@@ -40,7 +40,11 @@ app.get("/api/services", (req, res) => {
             return service;
           });
 
-          return res.json(services);
+          return res.json(
+            services.sort(function(a, b) {
+              return a.Spec.Name.localeCompare(b.Spec.Name);
+            })
+          );
         }
       });
     }
@@ -54,17 +58,19 @@ app.get("/api/appversion/:name", (req, res) => {
       console.error(err);
       return res.status(503).send(err);
     } else {
-      const paylod = services
+      let paylod = services
         .filter((service, index) => {
           if (service.Spec.Name === req.params.name) {
             return true;
           }
         })[0]
         .Spec.TaskTemplate.ContainerSpec.Image.split(":")[1];
+      paylod = paylod || "N/A";
+      const appversion = paylod.split("@")[0];
 
       res.send(
         JSON.stringify({
-          build: { version: paylod }
+          build: { version: appversion }
         })
       );
     }

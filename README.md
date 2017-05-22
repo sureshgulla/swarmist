@@ -12,7 +12,7 @@ For something similar, check out [Portainer](http://portainer.io/).
 
 ### Locally
 
-	docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 4000:4000 jsalonen/swarmist
+	docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 4000:4000 sureshgulla/swarmist
 
 ### Against Remote Swarm
 

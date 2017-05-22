@@ -134,10 +134,12 @@ class NodeStore {
           .catch(console.error);
       })
     });
-
-    this.unbindPolls = setInterval(() => {
+    this.interval = 5000;
+    this.fecth = () => {
       this.fetchInfo();
       if (this.isInSwarm && !this.error) {
+        // cancelInterval(this.unbindPolls)
+        // this.interval = 10000
         this.fetchServices();
         this.fetchTasks();
         this.fetchNetworks();
@@ -147,7 +149,13 @@ class NodeStore {
           this.fetchServiceLogs(service);
         });
       }
-    }, 1000);
+    };
+
+    this.fecth();
+
+    this.unbindPolls = setInterval(() => {
+      this.fecth();
+    }, this.interval);
   }
 }
 
