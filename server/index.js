@@ -47,6 +47,30 @@ app.get("/api/services", (req, res) => {
   });
 });
 
+app.get("/api/appversion/:name", (req, res) => {
+  // "docker-listener"
+  docker.listServices((err, services) => {
+    if (err) {
+      console.error(err);
+      return res.status(503).send(err);
+    } else {
+      const paylod = services
+        .filter((service, index) => {
+          if (service.Spec.Name === req.params.name) {
+            return true;
+          }
+        })[0]
+        .Spec.TaskTemplate.ContainerSpec.Image.split(":")[1];
+
+      res.send(
+        JSON.stringify({
+          build: { version: paylod }
+        })
+      );
+    }
+  });
+});
+
 app.get("/api/services/:id", (req, res) => {
   const { id } = req.params;
   if (!id) {

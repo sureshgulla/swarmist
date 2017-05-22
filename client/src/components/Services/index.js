@@ -45,6 +45,7 @@ const Services = inject("nodeStore")(
                 <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                   <TableRow>
                     <TableHeaderColumn>Name</TableHeaderColumn>
+                    <TableHeaderColumn>Version</TableHeaderColumn>
                     <TableHeaderColumn>Networks</TableHeaderColumn>
                     <TableHeaderColumn>Ports</TableHeaderColumn>
                     <TableHeaderColumn>Image</TableHeaderColumn>
@@ -75,6 +76,13 @@ const Services = inject("nodeStore")(
                               </div>
                             );
                           })}
+                      </TableRowColumn>
+                      <TableRowColumn /*(<IdField value={service.ID} />)*/>
+                        {
+                          service.Spec.TaskTemplate.ContainerSpec.Image.split(
+                            ":"
+                          )[1]
+                        }
                       </TableRowColumn>
                       <TableRowColumn>
                         {(service.Endpoint.Ports || []).map((port, index) => (
