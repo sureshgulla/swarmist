@@ -26,11 +26,12 @@ Start swarmist and connect to tunneled port:
 
 ### As a Swarm Mode Service
 
+
 	docker service create \
       --name swarmist \
       --constraint node.role==manager \
       --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-      --publish 4000:4000 jsalonen/swarmist
+      --publish 7873:4000 docker.researchnow.com/rnops/swarmist:latest
 
 ## Recipes
 
