@@ -17,12 +17,13 @@ For something similar, check out [Portainer](http://portainer.io/).
 ### Against Remote Swarm
 
 Create an SSH tunnel to manager node:
-
-	ssh -NL localhost:2375:/var/run/docker.sock user@example.com
+    
+    ssh user@example.com
+    docker run -it -p 2375:2375 -v /var/run/docker.sock:/var/run/docker.sock ubuntu:16.04 bash -c 'apt-get update; apt-get install -y socat; echo "\nSTARTING\n\n"; socat -d TCP-L:2375,fork UNIX:/var/run/docker.sock'
 
 Start swarmist and connect to tunneled port:
 
-	DOCKER_HOST=http://localhost:2375 npm start
+    DOCKER_HOST=http://example.com:2375 npm start
 
 ### As a Swarm Mode Service
 
