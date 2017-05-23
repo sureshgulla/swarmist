@@ -5,6 +5,7 @@
   "devDependencies": {
     "css-loader": "^0.28.1",
     "react-scripts": "0.9.5",
+    "react-ansi-style": "^1.0.0",
     "style-loader": "^0.17.0"
   },
   "dependencies": {
