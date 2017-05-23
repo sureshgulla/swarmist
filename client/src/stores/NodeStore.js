@@ -134,12 +134,15 @@ class NodeStore {
           .catch(console.error);
       })
     });
-    this.interval = 5000;
-    this.fecth = () => {
+
+    this.fetchInfo();
+    this.fetchServices();
+    this.fetchTasks();
+    this.fetchNetworks();
+
+    this.unbindPolls = setInterval(() => {
       this.fetchInfo();
       if (this.isInSwarm && !this.error) {
-        // cancelInterval(this.unbindPolls)
-        // this.interval = 10000
         this.fetchServices();
         this.fetchTasks();
         this.fetchNetworks();
@@ -149,13 +152,7 @@ class NodeStore {
           this.fetchServiceLogs(service);
         });
       }
-    };
-
-    this.fecth();
-
-    this.unbindPolls = setInterval(() => {
-      this.fecth();
-    }, this.interval);
+    }, 30000);
   }
 }
 
